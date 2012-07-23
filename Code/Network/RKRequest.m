@@ -488,6 +488,9 @@ RKRequestMethod RKRequestMethodTypeFromName(NSString *methodName) {
         RKResponse* response = [self loadResponseFromCache];
         self.loading = YES;
         [self performSelector:@selector(didFinishLoad:) withObject:response afterDelay:0];
+        if ( ([self shouldDispatchRequest]) && (self.cachePolicy & RKRequestCachePolicyFromCacheAndNetwork) ) {
+            [self fireAsynchronousRequest];
+        }
     } else if ([self shouldDispatchRequest]) {
         [self createTimeoutTimer];
 #if TARGET_OS_IPHONE

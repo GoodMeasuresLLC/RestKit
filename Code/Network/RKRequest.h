@@ -72,6 +72,8 @@ typedef enum {
      Load from the cache if we are within the timeout window
      */
     RKRequestCachePolicyTimeout = 1 << 4,
+    
+    RKRequestCachePolicyFromCacheAndNetwork = 1 << 5 | RKRequestCachePolicyEnabled,
     /**
      The default cache policy is etag and timeout support
      */

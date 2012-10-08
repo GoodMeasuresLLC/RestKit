@@ -97,11 +97,12 @@ RK_FIX_CATEGORY_BUG(NSDictionary_RKAdditions)
         NSString *path = inPath ? [inPath stringByAppendingFormat:@"[%@]", encodedKey] : encodedKey;
 
         if ([value isKindOfClass:[NSArray class]]) {
-            for (id item in value) {
+            for (NSInteger i = 0; i < [value count]; i++) {
+                id item = [value objectAtIndex:i];
                 if ([item isKindOfClass:[NSDictionary class]] || [item isKindOfClass:[NSMutableDictionary class]]) {
-                    [item URLEncodeParts:parts path:[path stringByAppendingString:@"[]"]];
+                    [item URLEncodeParts:parts path:[path stringByAppendingFormat:@"[%d]", i]];
                 } else {
-                    [self URLEncodePart:parts path:[path stringByAppendingString:@"[]"] value:item];
+                    [self URLEncodePart:parts path:[path stringByAppendingFormat:@"[%d]", i] value:item];
                 }
 
             }

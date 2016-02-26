@@ -331,6 +331,7 @@ static NSString *RKStringDescribingURLResponseWithData(NSURLResponse *response, 
             [[NSNotificationCenter defaultCenter] postNotificationName:RKObjectRequestOperationDidFinishNotification object:weakSelf userInfo:@{ RKObjectRequestOperationMappingDidStartUserInfoKey: weakSelf.mappingDidStartDate ?: [NSNull null], RKObjectRequestOperationMappingDidFinishUserInfoKey: weakSelf.mappingDidFinishDate ?: [NSNull null] }];
         }];
         [self.stateMachine setCancellationBlock:^{
+            RKDecrementNetworkAcitivityIndicator();
             [weakSelf.HTTPRequestOperation cancel];
             [weakSelf.responseMapperOperation cancel];
         }];
